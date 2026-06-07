@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student JSON Data</title>
+</head>
+<body>
+
+<h2>Student Data Using JSON</h2>
+<div id="output"></div>
+
+<script>
+
+const students = [
+    {name: "Ali", age: 22, semester: 6, courses: ["AI", "Web"]},
+    {name: "Ahmed", age: 21, semester: 5, courses: ["DB", "OS"]},
+    {name: "Hassan", age: 20, semester: 4, courses: ["OOP", "Math"]}
+];
+
+const jsonData = JSON.stringify(students);
+
+const parsedData = JSON.parse(jsonData);
+
+let result = "";
+
+parsedData.forEach(student => {
+    let {name, age, semester, courses} = student;
+    result += `
+        Name: ${name} <br>
+        Age: ${age} <br>
+        Semester: ${semester} <br>
+        Courses: ${courses.join(", ")} 
+        <hr>
+    `;
+});
+
+document.getElementById("output").innerHTML = result;
+
+</script>
+
+</body>
+</html>

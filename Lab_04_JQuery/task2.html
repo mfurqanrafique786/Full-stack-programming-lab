@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 2 - Animated Image Gallery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #1a1a2e;
+      color: white;
+      text-align: center;
+    }
+
+    h2 {
+      color: #e0e0e0;
+    }
+
+    #gallery {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      margin: 20px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #16213e;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    #caption {
+      font-size: 18px;
+      color: #a0c4ff;
+      margin: 10px 0 20px;
+      font-style: italic;
+      min-height: 28px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navBtn {
+      padding: 10px 24px;
+      background: #0f3460;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .navBtn:hover {
+      background: #e94560;
+    }
+
+    #counter {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .dots {
+      margin-top: 16px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #555;
+      border-radius: 50%;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: #e94560;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🖼️ Animated Image Gallery</h2>
+
+  <div id="gallery">
+    <img class="slide active"
+      src="https://picsum.photos/seed/city/600/300"
+      alt="City">
+    <img class="slide"
+      src="https://picsum.photos/seed/nature/600/300"
+      alt="Nature">
+    <img class="slide"
+      src="https://picsum.photos/seed/ocean/600/300"
+      alt="Ocean">
+    <img class="slide"
+      src="https://picsum.photos/seed/mountains/600/300"
+      alt="Mountains">
+    <img class="slide"
+      src="https://picsum.photos/seed/forest/600/300"
+      alt="Forest">
+  </div>
+
+  <div id="caption">A beautiful cityscape at dusk</div>
+
+  <div class="controls">
+    <button class="navBtn" id="prevBtn">&#8592; Prev</button>
+    <span id="counter">1 / 5</span>
+    <button class="navBtn" id="nextBtn">Next &#8594;</button>
+  </div>
+
+  <div class="dots">
+    <span class="dot active" data-index="0"></span>
+    <span class="dot" data-index="1"></span>
+    <span class="dot" data-index="2"></span>
+    <span class="dot" data-index="3"></span>
+    <span class="dot" data-index="4"></span>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      let current = 0;
+      const captions = [
+        "A beautiful cityscape at dusk",
+        "Peaceful nature scene in spring",
+        "Crystal clear ocean waves",
+        "Majestic mountain range at sunrise",
+        "A quiet walk through the forest"
+      ];
+      const slides = $(".slide");
+      const total = slides.length;
+
+      function goToSlide(index) {
+        // Fade out current slide
+        $(slides[current]).fadeOut(400, function () {
+          // Update current
+          current = (index + total) % total;
+
+          // Fade in new slide using chaining
+          $(slides[current])
+            .fadeIn(400)
+            .addClass("active");
+
+          // Update caption with fade using chaining
+          $("#caption")
+            .fadeOut(200, function () {
+              $(this).text(captions[current]).fadeIn(300);
+            });
+
+          // Update counter
+          $("#counter").text((current + 1) + " / " + total);
+
+          // Update dots
+          $(".dot").removeClass("active");
+          $(".dot[data-index='" + current + "']").addClass("active");
+        });
+
+        $(slides[current]).removeClass("active");
+      }
+
+      // Next button
+      $("#nextBtn").click(function () {
+        goToSlide(current + 1);
+      });
+
+      // Previous button
+      $("#prevBtn").click(function () {
+        goToSlide(current - 1);
+      });
+
+      // Dot navigation
+      $(".dot").click(function () {
+        let index = parseInt($(this).data("index"));
+        if (index !== current) goToSlide(index);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

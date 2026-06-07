@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 4 - Tabbed Content</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    /* Tab Navigation Bar */
+    #tabNav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px 0 30px;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      background: white;
+      border: 2px solid #bdc3c7;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      transition: all 0.25s;
+    }
+
+    .tab-btn:hover {
+      background: #3498db;
+      color: white;
+      border-color: #3498db;
+    }
+
+    .tab-btn.active {
+      background: #2c3e50;
+      color: white;
+      border-color: #2c3e50;
+    }
+
+    /* Tab Content Sections */
+    .tab-content {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      border-top: 5px solid #3498db;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .tab-content h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 22px;
+    }
+
+    .tab-content p {
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .tab-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    /* Color themes per tab */
+    #tab-html { border-top-color: #e67e22; }
+    #tab-css  { border-top-color: #3498db; }
+    #tab-js   { border-top-color: #f1c40f; }
+    #tab-jquery { border-top-color: #2ecc71; }
+    #tab-ajax { border-top-color: #9b59b6; }
+  </style>
+</head>
+<body>
+
+  <h2>📚 Web Development Guide</h2>
+
+  <!-- Tab Navigation -->
+  <div id="tabNav">
+    <button class="tab-btn active" data-target="tab-html">HTML</button>
+    <button class="tab-btn" data-target="tab-css">CSS</button>
+    <button class="tab-btn" data-target="tab-js">JavaScript</button>
+    <button class="tab-btn" data-target="tab-jquery">jQuery</button>
+    <button class="tab-btn" data-target="tab-ajax">Ajax</button>
+  </div>
+
+  <!-- Tab Contents -->
+  <div id="tab-html" class="tab-content">
+    <div class="tab-icon">🌐</div>
+    <h3>HTML — HyperText Markup Language</h3>
+    <p>HTML is the backbone of every web page. It defines the structure and content using elements like headings, paragraphs, images, links, forms, and tables.</p>
+    <p>HTML5 introduced semantic tags like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;footer&gt;</code> that make pages more meaningful and accessible.</p>
+  </div>
+
+  <div id="tab-css" class="tab-content">
+    <div class="tab-icon">🎨</div>
+    <h3>CSS — Cascading Style Sheets</h3>
+    <p>CSS controls the visual presentation of HTML. It lets you set colors, fonts, layouts, spacing, and animations to make web pages visually appealing.</p>
+    <p>Modern CSS features include Flexbox, Grid, transitions, custom properties (variables), and media queries for responsive design.</p>
+  </div>
+
+  <div id="tab-js" class="tab-content">
+    <div class="tab-icon">⚡</div>
+    <h3>JavaScript</h3>
+    <p>JavaScript is the programming language of the web. It enables interactivity — responding to clicks, validating forms, fetching data, updating content dynamically, and much more.</p>
+    <p>ES6+ introduced features like arrow functions, promises, async/await, destructuring, and modules that make JS more powerful and readable.</p>
+  </div>
+
+  <div id="tab-jquery" class="tab-content">
+    <div class="tab-icon">📦</div>
+    <h3>jQuery</h3>
+    <p>jQuery is a fast, lightweight JavaScript library that simplifies DOM manipulation, event handling, CSS changes, and animations with a clean, concise syntax.</p>
+    <p>Its motto "write less, do more" holds true — what takes 10 lines in vanilla JS can often be done in 2 lines with jQuery.</p>
+  </div>
+
+  <div id="tab-ajax" class="tab-content">
+    <div class="tab-icon">🔄</div>
+    <h3>Ajax — Asynchronous JavaScript</h3>
+    <p>Ajax allows web pages to communicate with a server in the background without reloading the entire page. This makes web apps feel fast and responsive.</p>
+    <p>jQuery's <code>$.ajax()</code>, <code>$.get()</code>, and <code>$.post()</code> methods make it easy to fetch data from APIs and update the page dynamically.</p>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      // Show first tab by default
+      $("#tab-html").show();
+
+      $(".tab-btn").click(function () {
+        let target = $(this).data("target");
+
+        // Update active button style
+        $(".tab-btn").removeClass("active");
+        $(this).addClass("active");
+
+        // Hide all tab content, then show clicked one with animation
+        $(".tab-content").stop(true, true).fadeOut(200, function () {
+          // After all are hidden, show the target
+          $("#" + target)
+            .fadeIn(400)
+            .css("display", "block");
+        });
+
+        // Smooth scroll to the content section
+        $("html, body").animate({
+          scrollTop: $("#" + target).offset().top - 80
+        }, 500);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

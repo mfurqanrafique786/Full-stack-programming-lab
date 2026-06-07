@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed To-Do List - Task 3</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 40px; background-color: #f0f2f5; }
+        .todo-container { max-width: 450px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        
+        .task-item { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 10px; 
+            margin-bottom: 10px; 
+            border-bottom: 1px solid #eee;
+        }
+        
+        .task-text { font-size: 18px; flex-grow: 1; }
+        
+        /* This class will be toggled by JS */
+        .completed { text-decoration: line-through; color: gray; font-style: italic; }
+        
+        button { margin-left: 5px; padding: 5px 10px; cursor: pointer; border-radius: 4px; border: none; }
+        .done-btn { background-color: #28a745; color: white; }
+        .remove-btn { background-color: #dc3545; color: white; }
+        .style-btn { width: 100%; margin-top: 20px; background-color: #6f42c1; color: white; padding: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="todo-container">
+        <h2>My Fixed Tasks</h2>
+        
+        <div class="task-item" id="item1">
+            <span class="task-text" id="text1">Finish Lab Report</span>
+            <div>
+                <button class="done-btn" onclick="markComplete('text1')">Done</button>
+                <button class="remove-btn" onclick="removeTask('item1')">Remove</button>
+            </div>
+        </div>
+
+        <div class="task-item" id="item2">
+            <span class="task-text" id="text2">Study JavaScript DOM</span>
+            <div>
+                <button class="done-btn" onclick="markComplete('text2')">Done</button>
+                <button class="remove-btn" onclick="removeTask('item2')">Remove</button>
+            </div>
+        </div>
+
+        <div class="task-item" id="item3">
+            <span class="task-text" id="text3">Practice CSS Grid</span>
+            <div>
+                <button class="done-btn" onclick="markComplete('text3')">Done</button>
+                <button class="remove-btn" onclick="removeTask('item3')">Remove</button>
+            </div>
+        </div>
+
+        <button class="style-btn" onclick="applyBatchStyle()">Apply Uniform Styling (Loop)</button>
+    </div>
+
+    <script src="script3.js"></script>
+</body>
+</html>

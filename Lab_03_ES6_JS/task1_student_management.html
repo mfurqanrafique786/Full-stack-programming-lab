@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+</head>
+<body>
+
+<h2>Student Management System</h2>
+<div id="output"></div>
+
+<script>
+
+class Student {
+    constructor(id, name, semester, courses) {
+        this.id = id;
+        this.name = name;
+        this.semester = semester;
+        this.courses = courses;
+    }
+
+    getDetails() {
+        return `
+            <p>
+            <strong>ID:</strong> ${this.id} <br>
+            <strong>Name:</strong> ${this.name} <br>
+            <strong>Semester:</strong> ${this.semester} <br>
+            <strong>Courses:</strong> ${this.courses.join(", ")}
+            </p>
+            <hr>
+        `;
+    }
+}
+
+const s1 = new Student(1, "Ali", 6, ["AI", "Web", "DS"]);
+const s2 = new Student(2, "Ahmed", 5, ["DB", "OS", "CN"]);
+const s3 = new Student(3, "Hassan", 4, ["OOP", "SE", "Math"]);
+
+let students = [s1, s2, s3];
+
+let result = "";
+students.forEach(student => {
+    result += student.getDetails();
+});
+
+document.getElementById("output").innerHTML = result;
+
+</script>
+
+</body>
+</html>

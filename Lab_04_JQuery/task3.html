@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 3 - Form Validation</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    .error-msg {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .field-error {
+      border-color: #e74c3c !important;
+      background-color: #fff5f5;
+    }
+
+    .field-success {
+      border-color: #2ecc71 !important;
+      background-color: #f0fff4;
+    }
+
+    #submitBtn {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #submitBtn:hover {
+      background: #2980b9;
+    }
+
+    #successMsg {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    #successMsg span {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📋 Registration Form</h2>
+
+  <div id="regForm">
+
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" placeholder="Enter your full name">
+      <p class="error-msg" id="nameError">Name must be at least 3 characters.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="text" id="email" placeholder="Enter your email">
+      <p class="error-msg" id="emailError">Please enter a valid email address.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Minimum 6 characters">
+      <p class="error-msg" id="passwordError">Password must be at least 6 characters.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="03XX-XXXXXXX">
+      <p class="error-msg" id="phoneError">Enter a valid phone number (10-11 digits).</p>
+    </div>
+
+    <button id="submitBtn">Submit Registration</button>
+
+  </div>
+
+  <div id="successMsg">
+    <span>✅</span>
+    Form submitted successfully! Welcome aboard.
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      // Validate each field on blur (when user leaves the field)
+      $("#fullName").blur(function () {
+        validateName();
+      });
+
+      $("#email").blur(function () {
+        validateEmail();
+      });
+
+      $("#password").blur(function () {
+        validatePassword();
+      });
+
+      $("#phone").blur(function () {
+        validatePhone();
+      });
+
+      // Validate name
+      function validateName() {
+        let val = $("#fullName").val().trim();
+        if (val.length < 3) {
+          $("#fullName").removeClass("field-success").addClass("field-error");
+          $("#nameError").slideDown(200);
+          return false;
+        } else {
+          $("#fullName").removeClass("field-error").addClass("field-success");
+          $("#nameError").slideUp(200);
+          return true;
+        }
+      }
+
+      // Validate email
+      function validateEmail() {
+        let val = $("#email").val().trim();
+        let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(val)) {
+          $("#email").removeClass("field-success").addClass("field-error");
+          $("#emailError").slideDown(200);
+          return false;
+        } else {
+          $("#email").removeClass("field-error").addClass("field-success");
+          $("#emailError").slideUp(200);
+          return true;
+        }
+      }
+
+      // Validate password
+      function validatePassword() {
+        let val = $("#password").val();
+        if (val.length < 6) {
+          $("#password").removeClass("field-success").addClass("field-error");
+          $("#passwordError").slideDown(200);
+          return false;
+        } else {
+          $("#password").removeClass("field-error").addClass("field-success");
+          $("#passwordError").slideUp(200);
+          return true;
+        }
+      }
+
+      // Validate phone
+      function validatePhone() {
+        let val = $("#phone").val().trim().replace(/[-\s]/g, "");
+        if (!/^\d{10,11}$/.test(val)) {
+          $("#phone").removeClass("field-success").addClass("field-error");
+          $("#phoneError").slideDown(200);
+          return false;
+        } else {
+          $("#phone").removeClass("field-error").addClass("field-success");
+          $("#phoneError").slideUp(200);
+          return true;
+        }
+      }
+
+      // Submit button — validate all fields
+      $("#submitBtn").click(function () {
+        let valid = validateName() & validateEmail() & validatePassword() & validatePhone();
+
+        if (valid) {
+          // Hide form and show success message without page reload
+          $("#regForm").fadeOut(400, function () {
+            $("#successMsg").fadeIn(500);
+          });
+        }
+      });
+
+    });
+  </script>
+
+</body>
+</html>

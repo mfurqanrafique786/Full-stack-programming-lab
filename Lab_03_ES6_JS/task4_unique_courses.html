@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unique Course Registration</title>
+</head>
+<body>
+
+<h2>Unique Course Registration</h2>
+<div id="output"></div>
+
+<script>
+
+let courses = new Set();
+
+courses.add("AI");
+courses.add("Web");
+courses.add("AI"); 
+courses.add("DB");
+
+let result = "";
+
+for (let course of courses) {
+    result += course + "<br>";
+}
+
+result += `<br>Total Unique Courses: ${courses.size}`;
+
+document.getElementById("output").innerHTML = result;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Data Loader</title>
+</head>
+<body>
+
+<h2>Asynchronous Data Loader</h2>
+<p id="output">Loading users...</p>
+
+<script>
+
+function fetchUsers() {
+    return new Promise((resolve, reject) => {
+        let success = true;
+
+        setTimeout(() => {
+            if (success) {
+                resolve([
+                    {id: 1, name: "Ali"},
+                    {id: 2, name: "Ahmed"},
+                    {id: 3, name: "Hassan"}
+                ]);
+            } else {
+                reject("Failed to load users!");
+            }
+        }, 3000);
+    });
+}
+
+fetchUsers()
+.then(users => {
+    let data = "";
+    users.forEach(user => {
+        data += `ID: ${user.id}, Name: ${user.name} <br>`;
+    });
+    document.getElementById("output").innerHTML = data;
+})
+.catch(error => {
+    document.getElementById("output").innerHTML = error;
+});
+
+</script>
+
+</body>
+</html>

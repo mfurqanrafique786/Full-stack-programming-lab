@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 1 - Dynamic List Manager</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    #inputArea {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #itemInput {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    #addBtn {
+      padding: 10px 18px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #addBtn:hover {
+      background: #45a049;
+    }
+
+    #itemList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #itemList li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border-left: 4px solid #4CAF50;
+      transition: background 0.2s;
+    }
+
+    #itemList li:hover {
+      background: #e8f5e9;
+      cursor: pointer;
+    }
+
+    .deleteBtn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .deleteBtn:hover {
+      background: #c0392b;
+    }
+
+    #emptyMsg {
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 Dynamic List Manager</h2>
+
+  <div id="inputArea">
+    <input type="text" id="itemInput" placeholder="Enter item name...">
+    <button id="addBtn">Add Item</button>
+  </div>
+
+  <ul id="itemList"></ul>
+  <p id="emptyMsg">No items yet. Add something above!</p>
+
+  <script>
+    $(document).ready(function () {
+
+      // Add item when button is clicked
+      $("#addBtn").click(function () {
+        addItem();
+      });
+
+      // Add item when Enter key is pressed
+      $("#itemInput").keypress(function (e) {
+        if (e.which === 13) {
+          addItem();
+        }
+      });
+
+      function addItem() {
+        let itemText = $("#itemInput").val().trim();
+
+        if (itemText === "") {
+          // Highlight input red if empty
+          $("#itemInput").css("border-color", "red");
+          return;
+        }
+
+        // Reset input border
+        $("#itemInput").css("border-color", "#ccc");
+
+        // Create new list item with delete button
+        let newItem = $("<li></li>").text(itemText);
+        let deleteBtn = $("<button class='deleteBtn'>Delete</button>");
+
+        newItem.append(deleteBtn);
+
+        // Add to list with fade-in effect
+        newItem.hide();
+        $("#itemList").append(newItem);
+        newItem.fadeIn(300);
+
+        // Hide empty message
+        $("#emptyMsg").hide();
+
+        // Clear input
+        $("#itemInput").val("");
+      }
+
+      // Delete item when delete button is clicked
+      $(document).on("click", ".deleteBtn", function () {
+        let item = $(this).parent();
+        item.fadeOut(300, function () {
+          $(this).remove();
+
+          // Show empty message if list is now empty
+          if ($("#itemList li").length === 0) {
+            $("#emptyMsg").show();
+          }
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>

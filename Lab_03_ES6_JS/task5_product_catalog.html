@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Catalog</title>
+</head>
+<body>
+
+<h2>Product Catalog</h2>
+<div id="output"></div>
+
+<script>
+
+let products = new Map();
+
+products.set(1, {name: "Laptop", price: 1000});
+products.set(2, {name: "Mouse", price: 20});
+products.set(3, {name: "Keyboard", price: 50});
+products.set(4, {name: "Monitor", price: 200});
+products.set(5, {name: "Printer", price: 150});
+
+products.delete(5); 
+
+let result = "";
+
+products.forEach((value, key) => {
+    result += `ID: ${key}, Name: ${value.name}, Price: $${value.price} <br>`;
+});
+
+result += `<br>Total Products: ${products.size}`;
+
+document.getElementById("output").innerHTML = result;
+
+</script>
+
+</body>
+</html>

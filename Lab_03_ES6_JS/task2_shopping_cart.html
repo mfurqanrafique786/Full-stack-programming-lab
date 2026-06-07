@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+<h2>Online Shopping Cart</h2>
+<div id="output"></div>
+
+<script>
+
+function addToCart(...items) {
+    return items;
+}
+
+let cart = addToCart("Laptop", "Mouse", "Keyboard", "Headphones");
+
+let clonedCart = [...cart];
+
+let [firstItem, ...remainingItems] = clonedCart;
+
+document.getElementById("output").innerHTML = `
+    <p>Total Items: ${cart.length}</p>
+    <p>First Item: ${firstItem}</p>
+    <p>Remaining Items: ${remainingItems.join(", ")}</p>
+`;
+
+</script>
+
+</body>
+</html>

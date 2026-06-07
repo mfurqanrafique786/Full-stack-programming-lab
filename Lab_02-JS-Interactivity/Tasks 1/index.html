@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Dynamic Quiz - Lab 02</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .quiz-container { max-width: 500px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .question { margin-bottom: 15px; }
+        input { display: block; margin-top: 5px; padding: 8px; width: 100%; box-sizing: border-box; }
+        button { margin-top: 10px; padding: 10px 15px; cursor: pointer; }
+        #result-display { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h2>JS Interactivity Quiz</h2>
+        <hr>
+
+        <div class="question">
+            <label>1. What does 'JS' stand for?</label>
+            <input type="text" id="q1" placeholder="Type answer here">
+        </div>
+
+        <div class="question">
+            <label>2. Which HTML tag is used to link a JS file?</label>
+            <input type="text" id="q2" placeholder="Type answer here">
+        </div>
+
+        <div class="question">
+            <label>3. Is JavaScript the same as Java? (Yes/No)</label>
+            <input type="text" id="q3" placeholder="Type answer here">
+        </div>
+
+        <button onclick="checkQuiz()">Submit Answers</button>
+        <button onclick="resetQuiz()" style="background-color: #f44336; color: white; border: none;">Reset Quiz</button>
+
+        <div id="result-display"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

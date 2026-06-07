@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini University Portal</title>
+</head>
+<body>
+
+<h2>Mini University Portal</h2>
+<div id="output"></div>
+
+<script>
+
+class Student {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+        this.courses = new Set();
+    }
+
+    registerCourse(course) {
+        this.courses.add(course);
+    }
+}
+
+let students = new Map();
+
+let s1 = new Student(1, "Ali");
+s1.registerCourse("AI");
+s1.registerCourse("Web");
+
+students.set(s1.id, s1);
+
+function saveData() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Data saved successfully!");
+        }, 2000);
+    });
+}
+
+saveData().then(message => {
+    let result = "";
+    students.forEach(student => {
+        result += `ID: ${student.id}, Name: ${student.name}<br>`;
+        result += `Courses: ${[...student.courses].join(", ")}<br><br>`;
+    });
+    result += message;
+
+    document.getElementById("output").innerHTML = result;
+});
+
+</script>
+
+</body>
+</html>

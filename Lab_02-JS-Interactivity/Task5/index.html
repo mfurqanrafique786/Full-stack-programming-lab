@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form - Task 5</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 40px; }
+        .form-container { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .error-msg { color: #dc3545; font-size: 0.85em; margin-top: 5px; min-height: 1em; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        #success-msg { text-align: center; color: #28a745; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Register</h2>
+        
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <div id="nameError" class="error-msg"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" id="email" placeholder="email@example.com">
+            <div id="emailError" class="error-msg"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" id="age" placeholder="18 - 60">
+            <div id="ageError" class="error-msg"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Min. 6 characters">
+            <div id="passwordError" class="error-msg"></div>
+        </div>
+
+        <button onclick="validateForm()">Submit Registration</button>
+        <div id="success-msg"></div>
+    </div>
+
+    <script src="script5.js"></script>
+</body>
+</html>
